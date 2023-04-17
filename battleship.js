@@ -4,6 +4,7 @@ import Gameboard from "./Gameboard.js";
 let Gameboard1 = Gameboard("player1");
 
 Gameboard1.createGameBoard();
+Gameboard1.printGameboard();
 
 const bigShipCoords = ["A1", "A2", "A3", "A4", "A5", "A6"];
 const smallShipCoords = ["B0", "B1"];
@@ -26,6 +27,7 @@ Gameboard1.receiveAttack("A6");
 // Small Ship Attacks
 Gameboard1.receiveAttack("B0");
 Gameboard1.receiveAttack("B1");
+Gameboard1.receiveAttack("B2");
 
 // Mid Ship Attacks
 Gameboard1.receiveAttack("C4");

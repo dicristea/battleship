@@ -5,9 +5,9 @@ const Gameboard = (playerName) => {
   let missedAttacks = [];
   let ships = [];
   let sunkShips = [];
+  let gameboardArray = [];
 
   const createGameBoard = () => {
-    let array = [];
     let charCode = 65;
     for (let i = 0; i < 10; i++) {
       const arrayItem = [];
@@ -17,11 +17,11 @@ const Gameboard = (playerName) => {
         arrayItem.push(letter + j);
       }
       charCode++;
-      array.push(arrayItem);
+      gameboardArray.push(arrayItem);
     }
-    console.log(array);
-    return array;
   };
+
+  const printGameboard = () => console.log(gameboardArray);
 
   const placeShip = (shipLength, coords) => {
     const newShip = Ship(shipLength, coords);
@@ -31,22 +31,23 @@ const Gameboard = (playerName) => {
   const receiveAttack = (attackCoords) => {
     for (let i = 0; i < ships.length; i++) {
       if (ships[i].coords.find((shipCoords) => attackCoords === shipCoords)) {
-        ships[i].hit();
-        // console.log(ships[i].getHits());
+        if (!ships[i].isSunk()) {
+          ships[i].hit();
+        }
         if (ships[i].isSunk()) {
           sunkShips.push(ships[i]);
           console.log(`Ship of length ${ships[i].length} has been sunk.`);
         }
-        return console.log(getSunkShips());
+        getSunkShips();
+        return;
       }
     }
-    return missedAttacks.push(attackCoords);
+    missedAttacks.push(attackCoords);
   };
 
   const getSunkShips = () => {
     if (sunkShips.length === ships.length) {
-      console.log("SUNK SHIPS", sunkShips);
-      return "LOST ALL SHIPS. LOSER";
+      console.log("LOST ALL SHIPS. LOSER");
     }
     return sunkShips.length;
   };
@@ -56,6 +57,7 @@ const Gameboard = (playerName) => {
     missedAttacks,
     ships,
     createGameBoard,
+    printGameboard,
     placeShip,
     receiveAttack,
     getSunkShips,

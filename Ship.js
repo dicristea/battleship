@@ -8,7 +8,7 @@ const Ship = (shipLength, coords) => {
 
   const getHits = () => hits;
 
-  const isSunk = () => hits === length;
+  const isSunk = () => hits >= length;
 
   return { length, coords, hit, getHits, isSunk };
 };
